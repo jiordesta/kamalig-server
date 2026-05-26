@@ -15,21 +15,25 @@ async function bootstrap() {
       }),
     );
 
-    const allowedOrigins = ['http://localhost:5173'];
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://kamalig-client.vercel.app/',
+      'https://kamalig-client.vercel.app',
+    ];
 
     app.enableCors({
       origin: allowedOrigins,
       credentials: true,
     });
 
-    // setInterval(
-    //   async () => {
-    //     try {
-    //       await fetch('https://ims-server-1-37mu.onrender.com/');
-    //     } catch (err) {}
-    //   },
-    //   1000 * 60 * 5,
-    // );
+    setInterval(
+      async () => {
+        try {
+          await fetch('https://kamalig-server.onrender.com');
+        } catch (err) {}
+      },
+      1000 * 60 * 5,
+    );
 
     await app.listen(process.env.PORT || 3000);
     console.log(`Application is running on: ${await app.getUrl()}`);
