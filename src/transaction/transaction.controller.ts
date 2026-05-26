@@ -18,6 +18,7 @@ export class TransactionController {
   @Get('fetchall')
   async fetchAllTransactions(
     @Query('userId', new ParseIntPipe({ optional: true })) userId?: number,
+    @Query('transactionDate') transactionDate?: string,
   ) {
     let filters = {
       isDeleted: false,
@@ -27,6 +28,10 @@ export class TransactionController {
       filters['user'] = {
         id: userId,
       };
+    }
+
+    if (transactionDate) {
+      filters['transactionDate'] = new Date(transactionDate);
     }
 
     return await this.transactionService.fetchAllTransactions(filters);

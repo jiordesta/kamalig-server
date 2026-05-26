@@ -17,6 +17,7 @@ async function bootstrap() {
 
     const allowedOrigins = [
       'http://localhost:5173',
+      'http://localhost:4173',
       'https://kamalig-client.vercel.app/',
       'https://kamalig-client.vercel.app',
     ];
