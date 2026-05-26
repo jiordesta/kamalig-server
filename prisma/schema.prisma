@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model User {
+  id              Int             @id @default(autoincrement())
+  createdAt       DateTime        @default(now())
+  isDeleted       Boolean         @default(false)
+  userCredential  UserCredential?
+  userDetails     UserDetails?
+  userSessions    UserSession?
+  userRole        UserRole?
+  transaction     Transaction[]
+}
+model UserCredential {
+  id       Int    @id @default(autoincrement())
+  password String
+  username String @unique
+  userId   Int?    @unique
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model UserDetails {
+  id     Int    @id @default(autoincrement())
+  fname  String
+  lname  String
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model UserSession {
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  expiresAt        DateTime
+  isRevoked        Boolean  @default(false)
+  refreshTokenHash String   @unique 
+  userId           Int @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model UserRole {
+  id   Int    @id @default(autoincrement())
+  userId Int @unique
+  roleId Int 
+  role Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  userRole UserRole[]
+}
+model Product {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  isDeleted   Boolean  @default(false)
+  names       String[]
+  restockId   Restock[]
+  item        Item[]
+}
+model Item {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  isDeleted   Boolean  @default(false)
+
+  productId   Int
+  quantity    Int
+  restockId   Int @unique
+
+  restock     Restock  @relation(fields: [restockId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  transactionItem TransactionItem[]
+}
+model Restock {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  isDeleted   Boolean  @default(false)
+
+  restockDate DateTime
+  productId   Int
+  brand       String?
+  quantity    Int
+
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  item       Item?
+} 
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  isDeleted   Boolean  @default(false)
+
+  userId      Int
+  transactionDate DateTime
+  
+  transactionItem TransactionItem[]
+  user        User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model TransactionItem {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  isDeleted   Boolean  @default(false)
+
+  transactionId Int
+  itemId        Int
+  quantity      Int
+
+  transaction Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  item        Item  @relation(fields: [itemId], references: [id], onDelete: Cascade)
+}
