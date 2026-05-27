@@ -67,3 +67,15 @@ export type UpdateTransactionData = {
   transactionDate: Date;
   items: TransactionItemData[];
 };
+
+export type CreateReportData = {
+  reportDate: Date;
+  items: ReportItemData[];
+};
+
+export type ReportItemData = {
+  id?: number;
+  itemId: number;
+  quantity: number;
+  additional: number[];
+};

@@ -9,9 +9,10 @@ import { RestockModule } from './restock/restock.module';
 import { ConfigModule } from './config/config.module';
 import { StockModule } from './stock/stock.module';
 import { TransactionModule } from './transaction/transaction.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UserModule, ProductModule, RestockModule, ConfigModule, StockModule, TransactionModule],
+  imports: [PrismaModule, AuthModule, UserModule, ProductModule, RestockModule, ConfigModule, StockModule, TransactionModule, ReportModule],
   controllers: [AppController],
   providers: [AppService],
 })
