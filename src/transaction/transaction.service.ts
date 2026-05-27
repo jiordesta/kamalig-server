@@ -116,15 +116,25 @@ export class TransactionService {
             transactionItem.quantity +
             transactionItem.additional.reduce((acc, curr) => acc + curr, 0);
 
-          await transaction.transactionItem.update({
-            where: {
-              id: transactionItem.id,
-              transactionId: transactionId,
-            },
-            data: {
-              quantity: quantity,
-            },
-          });
+          if (transactionItem.id) {
+            await transaction.transactionItem.update({
+              where: {
+                id: transactionItem.id,
+                transactionId: transactionId,
+              },
+              data: {
+                quantity: quantity,
+              },
+            });
+          } else {
+            await transaction.transactionItem.create({
+              data: {
+                transactionId: transactionId,
+                itemId: transactionItem.itemId,
+                quantity: quantity,
+              },
+            });
+          }
         }
 
         return true;

@@ -158,3 +158,23 @@ export class UpdateTransactionDTO {
   @IsNotEmpty()
   readonly items!: TransactionItemDTO[];
 }
+
+export class ReportItemDTO {
+  @IsNotEmpty()
+  @Transform(({ value }) => parseInt(value, 10))
+  readonly itemId!: number;
+
+  @IsNotEmpty()
+  @Transform(({ value }) => parseInt(value, 10))
+  readonly quantity!: number;
+
+  @IsNotEmpty()
+  readonly additional!: number[];
+}
+export class CreateReportDTO {
+  @IsNotEmpty()
+  readonly reportDate!: Date;
+
+  @IsNotEmpty()
+  readonly items!: ReportItemDTO[];
+}
