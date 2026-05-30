@@ -102,6 +102,7 @@ export class ReportService {
           brand: reportItem.item.restock.brand,
           itemQuantity: reportItem.itemQuantity,
           reportQuantity: reportItem.reportQuantity,
+          match: reportItem.itemQuantity === reportItem.reportQuantity,
         };
       });
     } catch (error: any) {
