@@ -20,6 +20,8 @@ async function bootstrap() {
       'http://localhost:4173',
       'https://kamalig-client.vercel.app/',
       'https://kamalig-client.vercel.app',
+      'https://kamalig-client-snowy.vercel.app/',
+      'https://kamalig-client-snowy.vercel.app',
     ];
 
     app.enableCors({
