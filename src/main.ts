@@ -20,6 +20,8 @@ async function bootstrap() {
       'http://localhost:4173',
       'https://kamalig-client.vercel.app/',
       'https://kamalig-client.vercel.app',
+      'https://kamalig-client-snowy.vercel.app/',
+      'https://kamalig-client-snowy.vercel.app',
     ];
 
     app.enableCors({
@@ -30,7 +32,7 @@ async function bootstrap() {
     setInterval(
       async () => {
         try {
-          await fetch('https://kamalig-server.onrender.com');
+          await fetch('https://kamalig-server-js11.onrender.com');
         } catch (err) {}
       },
       1000 * 60 * 14,
