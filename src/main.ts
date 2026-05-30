@@ -33,7 +33,7 @@ async function bootstrap() {
           await fetch('https://kamalig-server.onrender.com');
         } catch (err) {}
       },
-      1000 * 60 * 5,
+      1000 * 60 * 14,
     );
 
     await app.listen(process.env.PORT || 3000);
